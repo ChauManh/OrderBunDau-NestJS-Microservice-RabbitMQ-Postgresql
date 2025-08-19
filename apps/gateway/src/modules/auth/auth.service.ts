@@ -1,5 +1,5 @@
-import { LoginDto } from '@app/common/dtos/requests/auth/login.dto';
-import { LoginResponse } from '@app/common/dtos/responses/auth/login-response.interface';
+import { LoginDto } from '@app/common/dtos/requests/auth.request.dto';
+import { LoginResponse } from '@app/common/dtos/responses/auth.response.interface';
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';

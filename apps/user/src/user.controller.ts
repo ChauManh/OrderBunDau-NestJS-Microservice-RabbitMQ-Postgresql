@@ -1,9 +1,9 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dtos/create-user.dto';
 import { ERROR_MESSAGES } from '@app/common/constants/errors';
 import { hash } from 'bcrypt';
+import { CreateUserDto } from '@app/common/dtos/requests/user.request.dto';
 
 @Controller()
 export class UserController {
@@ -17,7 +17,7 @@ export class UserController {
     if (user) throw new RpcException(ERROR_MESSAGES.USER_ALREADY_EXISTS);
     const passwordHash = await hash(createUserDto.password, 10);
     createUserDto.password = passwordHash;
-    return this.userService.create(createUserDto);
+    return await this.userService.create(createUserDto);
   }
 
   @MessagePattern('findAllUser')

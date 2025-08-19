@@ -21,9 +21,12 @@
     "start:gateway:dev": "nest start gateway --watch",
     "start:user:dev": "nest start user --watch",
     "start:auth:dev": "nest start auth --watch",
-    "dev": "concurrently --names \"GATEWAY,USER,AUTH\" --prefix-colors \"bgGreen.bold,bgCyan.bold,bgMagenta.bold\" \"npm run start:gateway:dev\" \"npm run start:user:dev\" \"npm run start:auth:dev\""
+    "start:menu-item:dev": "nest start menu-item --watch",
+    "start:category:dev": "nest start category --watch",
+    "dev": "concurrently --names \"GATEWAY,USER,AUTH,MENUITEM,CATEGORY\" --prefix-colors \"bgGreen.bold,bgCyan.bold,bgMagenta.bold,bgYellow.bold,bgBlue.bold\" \"npm run start:gateway:dev\" \"npm run start:user:dev\" \"npm run start:auth:dev\" \"npm run start:menu-item:dev\" \"npm run start:category:dev\""
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.864.0",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
@@ -53,6 +56,7 @@
     "@types/cookie-parser": "^1.4.9",
     "@types/express": "^5.0.0",
     "@types/jest": "^30.0.0",
+    "@types/multer": "^2.0.0",
     "@types/node": "^22.10.7",
     "@types/supertest": "^6.0.2",
     "concurrently": "^9.2.0",

@@ -1,28 +1,25 @@
 import { Module } from '@nestjs/common';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 import { MenuItemController } from './menu-item.controller';
 import { MenuItemService } from './menu-item.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { MenuItem } from './entities/menu-item.entity';
-import { DatabaseModule } from '@app/common';
-import { ClientsModule, Transport } from '@nestjs/microservices';
+import { S3Module } from '../s3-upload/s3-upload.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([MenuItem]),
-    DatabaseModule,
     ClientsModule.register([
       {
-        name: 'CATEGORY_SERVICE', // ✅ phải khớp với @Inject()
+        name: 'MENUITEM_SERVICE',
         transport: Transport.RMQ,
         options: {
           urls: [
             process.env.RABBITMQ_URI || 'amqp://guest:guest@localhost:5672',
           ],
-          queue: 'category_queue', // tên queue của service category
+          queue: 'menu_item_queue',
           queueOptions: { durable: false },
         },
       },
     ]),
+    S3Module,
   ],
   controllers: [MenuItemController],
   providers: [MenuItemService],

@@ -18,7 +18,6 @@ export class ResponseInterceptor<T>
   ): Observable<ApiResponse<T>> {
     return next.handle().pipe(
       map((data) => ({
-        status: 'success',
         message: 'Success',
         data,
       })),
