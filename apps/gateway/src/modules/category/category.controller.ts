@@ -9,6 +9,9 @@ import {
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from '@app/common/dtos/requests/category.request.dto';
+import { CategoryResponse } from '@app/common/dtos/responses/category.response.interface';
+import { ReturnFromController } from '../../common/interfaces/return-from-controller.interface';
+import { mapToApiResponse } from '../../common/utils/map-to-api-response.util';
 
 @Controller('category')
 export class CategoryController {
@@ -20,8 +23,9 @@ export class CategoryController {
   }
 
   @Get()
-  findAll() {
-    return this.categoryService.findAll();
+  async findAll(): Promise<ReturnFromController<CategoryResponse[]>> {
+    const categories = await this.categoryService.findAll();
+    return mapToApiResponse(200, 'Get categories successfully', categories);
   }
 
   @Get(':id')

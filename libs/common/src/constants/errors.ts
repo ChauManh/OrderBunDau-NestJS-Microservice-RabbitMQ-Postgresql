@@ -6,70 +6,85 @@ export const ERROR_MESSAGES = {
   USER_ALREADY_EXISTS: {
     code: 1001,
     statusCode: HttpStatus.BAD_REQUEST,
-    message: 'User already exists',
+    message: 'Người dùng đã tồn tại',
   },
   USER_NOT_FOUND: {
     code: 1002,
     statusCode: HttpStatus.NOT_FOUND,
-    message: 'User not found',
+    message: 'Không tìm thấy người dùng',
   },
   INVALID_CREDENTIALS: {
     code: 1003,
     statusCode: HttpStatus.UNAUTHORIZED,
-    message: 'Invalid phone number or password',
+    message: 'Số điện thoại hoặc mật khẩu không đúng',
   },
   FORBIDDEN: {
     code: 1004,
     statusCode: HttpStatus.FORBIDDEN,
-    message: 'You do not have permission to perform this action',
+    message: 'Bạn không có quyền thực hiện hành động này',
   },
   INTERNAL_ERROR: {
     code: 1005,
     statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
-    message: 'Internal server error',
+    message: 'Lỗi máy chủ',
   },
   VALIDATE_FAILED: {
     code: 1006,
     statusCode: HttpStatus.BAD_REQUEST,
-    message: 'Validation failed',
+    message: 'Dữ liệu không hợp lệ',
   },
   UPLOAD_FAILED: {
     code: 1007,
     statusCode: HttpStatus.BAD_REQUEST,
-    message: 'Upload image to cloud failed',
+    message: 'Lỗi khi tải ảnh lên',
+  },
+  UNAUTHORIZED: {
+    code: 1008,
+    statusCode: HttpStatus.UNAUTHORIZED,
+    message: 'Bạn không có quyền truy cập vào tài nguyên này',
+  },
+  USER_INACTIVE: {
+    code: 1009,
+    statusCode: HttpStatus.UNAUTHORIZED,
+    message: 'Tài khoản tạm thời ngừng hoạt động',
+  },
+  TOKEN_NOT_FOUND: {
+    code: 1010,
+    statusCode: HttpStatus.UNAUTHORIZED,
+    message: 'Token không được cung cấp',
   },
 
-  // category 1021 - 1039
+  // category 1021 - 1040
   CATEGORY_ALREADY_EXISTS: {
     code: 1021,
     statusCode: HttpStatus.BAD_REQUEST,
-    message: 'Category already exists',
+    message: 'Danh mục đã tồn tại',
   },
   CATEGORY_NOT_FOUND: {
     code: 1022,
     statusCode: HttpStatus.NOT_FOUND,
-    message: 'Category not found',
+    message: 'Không tìm thấy danh mục',
   },
   INVALID_CATEGORY_NAME: {
     code: 1023,
     statusCode: HttpStatus.BAD_REQUEST,
-    message: 'Invalid category name',
+    message: 'Tên danh mục không hợp lệ',
   },
 
-  // menu-item 1041 - 1059
+  // menu-item 1041 - 1060
   MENU_ITEM_ALREADY_EXISTS: {
     code: 1041,
     statusCode: HttpStatus.BAD_REQUEST,
-    message: 'Menu item already exists',
+    message: 'Món ăn đã tồn tại',
   },
   MENU_ITEM_NOT_FOUND: {
     code: 1042,
     statusCode: HttpStatus.NOT_FOUND,
-    message: 'Menu item not found',
+    message: 'Không tìm thấy món ăn',
   },
   INVALID_MENU_ITEM_NAME: {
     code: 1043,
     statusCode: HttpStatus.BAD_REQUEST,
-    message: 'Invalid menu item name',
+    message: 'Tên món ăn không hợp lệ',
   },
 } as const;

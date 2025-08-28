@@ -19,6 +19,8 @@ export class AllExceptionFilter implements ExceptionFilter {
     let code = 1005;
     let message = ERROR_MESSAGES.INTERNAL_ERROR.message;
 
+    console.log(exception);
+
     // Nếu là HttpException (ValidationPipe, manual throw trong Gateway)
     if (exception instanceof HttpException) {
       const response = exception.getResponse() as {

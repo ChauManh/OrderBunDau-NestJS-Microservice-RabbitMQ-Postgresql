@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   generateToken(user: User): LoginResponse {
-    const payload = { sub: user.id, role: user.role };
+    const payload = { sub: user.id, role: user.role, active: user.isActive };
     return {
       accessToken: this.jwtService.sign(payload, { expiresIn: '1h' }),
       refreshToken: this.jwtService.sign(payload, { expiresIn: '7d' }),

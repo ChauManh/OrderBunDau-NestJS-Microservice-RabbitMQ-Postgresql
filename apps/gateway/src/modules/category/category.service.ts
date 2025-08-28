@@ -1,7 +1,7 @@
 import { CreateCategoryDto } from '@app/common/dtos/requests/category.request.dto';
+import { CategoryResponse } from '@app/common/dtos/responses/category.response.interface';
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { Category } from 'apps/category/src/entities/user.entity';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable()
@@ -10,13 +10,15 @@ export class CategoryService {
     @Inject('CATEGORY_SERVICE') private readonly client: ClientProxy,
   ) {}
 
-  async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
+  async create(
+    createCategoryDto: CreateCategoryDto,
+  ): Promise<CategoryResponse> {
     return await firstValueFrom(
       this.client.send('createCategory', createCategoryDto),
     );
   }
 
-  async findAll(): Promise<Category[]> {
+  async findAll(): Promise<CategoryResponse[]> {
     return await firstValueFrom(this.client.send('findAllCategories', {}));
   }
 

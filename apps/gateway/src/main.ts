@@ -15,7 +15,7 @@ async function bootstrap() {
   app.use(cookieParser());
 
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://192.168.1.6:3000'],
+    origin: ['http://localhost:3000', 'http://192.168.1.5:3000'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Csrf-Token'],
     credentials: true,
@@ -28,7 +28,7 @@ async function bootstrap() {
       transform: true,
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       exceptionFactory: (errors) => {
-        console.log(errors);
+        // console.log(errors);
         throw new BadRequestException(ERROR_MESSAGES.VALIDATE_FAILED);
       },
     }),

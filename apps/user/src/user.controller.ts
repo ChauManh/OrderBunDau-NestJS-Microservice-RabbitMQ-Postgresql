@@ -1,9 +1,10 @@
 import { Controller } from '@nestjs/common';
-import { MessagePattern, Payload, RpcException } from '@nestjs/microservices';
+import { MessagePattern, Payload } from '@nestjs/microservices';
 import { UserService } from './user.service';
-import { ERROR_MESSAGES } from '@app/common/constants/errors';
-import { hash } from 'bcrypt';
-import { CreateUserDto } from '@app/common/dtos/requests/user.request.dto';
+import {
+  CreateUserDto,
+  UpdateUserDto,
+} from '@app/common/dtos/requests/user.request.dto';
 
 @Controller()
 export class UserController {
@@ -11,37 +12,32 @@ export class UserController {
 
   @MessagePattern('createUser')
   async create(@Payload() createUserDto: CreateUserDto) {
-    const user = await this.userService.findOneByPhoneNumber(
-      createUserDto.phoneNumber,
-    );
-    if (user) throw new RpcException(ERROR_MESSAGES.USER_ALREADY_EXISTS);
-    const passwordHash = await hash(createUserDto.password, 10);
-    createUserDto.password = passwordHash;
     return await this.userService.create(createUserDto);
   }
 
-  @MessagePattern('findAllUser')
-  findAll() {
-    return this.userService.findAll();
+  @MessagePattern('findAllUsers')
+  async findAll() {
+    return await this.userService.findAll();
   }
 
   @MessagePattern('findUserByPhoneNumber')
-  findByPhoneNumber(@Payload() phoneNumber: string) {
-    return this.userService.findOneByPhoneNumber(phoneNumber);
+  async findByPhoneNumber(@Payload() phoneNumber: string) {
+    return await this.userService.findOneByPhoneNumber(phoneNumber);
   }
 
   @MessagePattern('findOneUser')
-  findOne(@Payload() id: number) {
-    return this.userService.findOne(id);
+  async findOne(@Payload() id: string) {
+    return await this.userService.findOne(id);
   }
 
   @MessagePattern('updateUser')
-  update(@Payload() id: number) {
-    return this.userService.update(id);
+  async update(@Payload() data: { id: string; updateUserDto: UpdateUserDto }) {
+    return await this.userService.update(data.id, data.updateUserDto);
   }
 
   @MessagePattern('removeUser')
-  remove(@Payload() id: number) {
-    return this.userService.remove(id);
+  async remove(@Payload() id: string) {
+    await this.userService.remove(id);
+    return {};
   }
 }

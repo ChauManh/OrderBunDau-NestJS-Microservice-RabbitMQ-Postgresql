@@ -18,6 +18,17 @@ import { S3Module } from '../s3-upload/s3-upload.module';
           queueOptions: { durable: false },
         },
       },
+      {
+        name: 'CATEGORY_SERVICE',
+        transport: Transport.RMQ,
+        options: {
+          urls: [
+            process.env.RABBITMQ_URI || 'amqp://guest:guest@localhost:5672',
+          ],
+          queue: 'category_queue',
+          queueOptions: { durable: false },
+        },
+      },
     ]),
     S3Module,
   ],
