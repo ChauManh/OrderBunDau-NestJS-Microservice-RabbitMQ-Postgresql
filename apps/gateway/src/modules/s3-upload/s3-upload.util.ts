@@ -1,5 +1,6 @@
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { Injectable } from '@nestjs/common';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class S3UploadUtil {
@@ -25,9 +26,10 @@ export class S3UploadUtil {
       .replace(/^-+|-+$/g, ''); // xoá - ở đầu/cuối
   }
 
-  public generateImageKey(prefix: string, name: string): string {
-    const slug = this.slugify(name);
-    return `${prefix}/${slug}`;
+  public generateImageKey(prefix: string): string {
+    // const slug = this.slugify(name);
+    const uuid = randomUUID();
+    return `${prefix}/${uuid}`;
   }
 
   async uploadImage(file: Express.Multer.File, key: string) {

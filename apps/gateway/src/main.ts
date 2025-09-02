@@ -26,9 +26,8 @@ async function bootstrap() {
       whitelist: true,
       forbidNonWhitelisted: true,
       transform: true,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       exceptionFactory: (errors) => {
-        // console.log(errors);
+        console.log(errors);
         throw new BadRequestException(ERROR_MESSAGES.VALIDATE_FAILED);
       },
     }),

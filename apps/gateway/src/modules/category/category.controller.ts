@@ -3,9 +3,9 @@ import {
   Get,
   Post,
   Body,
-  // Patch,
   Param,
   Delete,
+  Patch,
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from '@app/common/dtos/requests/category.request.dto';
@@ -18,28 +18,36 @@ export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
   @Post()
-  create(@Body() createCategoryDto: CreateCategoryDto) {
-    return this.categoryService.create(createCategoryDto);
+  async create(@Body() createCategoryDto: CreateCategoryDto) {
+    const category = await this.categoryService.create(createCategoryDto);
+    return mapToApiResponse(201, 'Tạo danh mục thành công', category);
   }
 
   @Get()
   async findAll(): Promise<ReturnFromController<CategoryResponse[]>> {
     const categories = await this.categoryService.findAll();
-    return mapToApiResponse(200, 'Get categories successfully', categories);
+    return mapToApiResponse(200, 'Lấy tất cả danh mục thành công', categories);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.categoryService.findOne(+id);
+  @Patch(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() updateCategoryDto: CreateCategoryDto,
+  ) {
+    const categoryUpdated = await this.categoryService.update(
+      id,
+      updateCategoryDto,
+    );
+    return mapToApiResponse(
+      200,
+      'Cập nhật danh mục thành công',
+      categoryUpdated,
+    );
   }
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateCategoryDto) {
-  //   return this.categoryService.update(+id, updateCategoryDto);
-  // }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.categoryService.remove(+id);
+  async remove(@Param('id') id: string) {
+    await this.categoryService.remove(id);
+    return mapToApiResponse(204);
   }
 }

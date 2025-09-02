@@ -36,7 +36,9 @@ export class UserService {
   }
 
   async findOne(id: string) {
-    return await this.userRepo.findOne({ where: { id } });
+    const user = await this.userRepo.findOne({ where: { id } });
+    if (!user) throw new RpcException(ERROR_MESSAGES.USER_NOT_FOUND);
+    return user;
   }
 
   async findOneByPhoneNumber(
@@ -54,7 +56,6 @@ export class UserService {
   ): Promise<UserResponse> {
     // console.log(updateUserDto);
     const user = await this.findOne(id);
-    if (!user) throw new RpcException(ERROR_MESSAGES.USER_NOT_FOUND);
     if (updateUserDto.phoneNumber) {
       const existingUser = await this.findOneByPhoneNumber(
         updateUserDto.phoneNumber,
@@ -67,9 +68,8 @@ export class UserService {
     return updatedUser;
   }
 
-  async remove(id: string) {
+  async delete(id: string) {
     const user = await this.findOne(id);
-    if (!user) throw new RpcException(ERROR_MESSAGES.USER_NOT_FOUND);
     await this.userRepo.remove(user);
   }
 }

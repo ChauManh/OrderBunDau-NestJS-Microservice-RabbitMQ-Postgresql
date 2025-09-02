@@ -37,7 +37,7 @@ export class UserController {
 
   @MessagePattern('removeUser')
   async remove(@Payload() id: string) {
-    await this.userService.remove(id);
+    await this.userService.delete(id);
     return {};
   }
 }

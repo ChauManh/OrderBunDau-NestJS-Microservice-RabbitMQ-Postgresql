@@ -17,8 +17,24 @@ export class CategoryController {
     return await this.categoryService.getAll();
   }
 
-  @MessagePattern('findCategoryById')
+  @MessagePattern('findOneCategory')
   async getById(@Payload() id: string) {
-    return await this.categoryService.getById(id);
+    return await this.categoryService.findOne(id);
+  }
+
+  @MessagePattern('updateCategory')
+  async update(
+    @Payload() data: { id: string; updateCategoryDto: CreateCategoryDto },
+  ) {
+    return await this.categoryService.update(
+      data.id,
+      data.updateCategoryDto.name,
+    );
+  }
+
+  @MessagePattern('removeCategory')
+  async remove(@Payload() id: string) {
+    await this.categoryService.delete(id);
+    return {};
   }
 }

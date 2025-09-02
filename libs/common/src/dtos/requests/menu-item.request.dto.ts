@@ -15,3 +15,12 @@ export class CreateMenuItemDto {
   @Type(() => Boolean) @IsBoolean() isActive: boolean;
   @Type(() => String) @IsUUID() categoryId: string;
 }
+
+export class UpdateMenuItemDto {
+  @IsString() @IsOptional() name?: string;
+  @IsString() @IsOptional() description?: string;
+  @Type(() => Number) @IsOptional() @IsNumber() price?: number;
+  // @IsString() @IsOptional() image: string;
+  @Type(() => Boolean) @IsBoolean() @IsOptional() isActive?: boolean;
+  @Type(() => String) @IsUUID() @IsOptional() categoryId?: string;
+}

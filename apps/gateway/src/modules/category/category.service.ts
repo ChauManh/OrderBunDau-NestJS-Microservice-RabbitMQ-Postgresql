@@ -22,15 +22,16 @@ export class CategoryService {
     return await firstValueFrom(this.client.send('findAllCategories', {}));
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} category`;
+  async update(
+    id: string,
+    updateCategoryDto: CreateCategoryDto,
+  ): Promise<CategoryResponse> {
+    return await firstValueFrom(
+      this.client.send('updateCategory', { id, updateCategoryDto }),
+    );
   }
 
-  // update(id: number, updateCategoryDto) {
-  //   return `This action updates a #${id} category`;
-  // }
-
-  remove(id: number) {
-    return `This action removes a #${id} category`;
+  async remove(id: string) {
+    await firstValueFrom(this.client.send('removeCategory', id));
   }
 }

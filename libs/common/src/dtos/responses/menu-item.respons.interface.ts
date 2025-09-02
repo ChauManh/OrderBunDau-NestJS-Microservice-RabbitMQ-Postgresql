@@ -1,7 +1,7 @@
-import { Category } from 'apps/category/src/entities/user.entity';
+import { Category } from 'apps/category/src/entities/category.entity';
 
 export interface MenuItemResponse {
-  id: number;
+  id: string;
   name: string;
   description: string;
   price: number;

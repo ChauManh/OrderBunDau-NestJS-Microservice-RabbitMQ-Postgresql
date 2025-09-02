@@ -4,26 +4,9 @@ import { MenuItemService } from './menu-item.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MenuItem } from './entities/menu-item.entity';
 import { DatabaseModule } from '@app/common';
-import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([MenuItem]),
-    DatabaseModule,
-    ClientsModule.register([
-      {
-        name: 'CATEGORY_SERVICE', // ✅ phải khớp với @Inject()
-        transport: Transport.RMQ,
-        options: {
-          urls: [
-            process.env.RABBITMQ_URI || 'amqp://guest:guest@localhost:5672',
-          ],
-          queue: 'category_queue', // tên queue của service category
-          queueOptions: { durable: false },
-        },
-      },
-    ]),
-  ],
+  imports: [TypeOrmModule.forFeature([MenuItem]), DatabaseModule],
   controllers: [MenuItemController],
   providers: [MenuItemService],
 })
